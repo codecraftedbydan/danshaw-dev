@@ -343,10 +343,9 @@ section{padding:110px 0;}
 .personal-card h4{font-size:1rem; margin-bottom:8px;}
 .personal-card p{color:var(--grey-1); font-size:13px; margin:0;}
 .photo-slot{
-  aspect-ratio:4/3; border:1px dashed var(--line); border-radius:var(--radius);
-  display:flex; align-items:center; justify-content:center;
-  color:var(--grey-3); font-size:11px; text-transform:uppercase; letter-spacing:0.08em;
-  margin-top:16px; text-align:center; padding:12px;
+  aspect-ratio:4/3; border:1px solid var(--line); border-radius:var(--radius);
+  display:block; width:100%; height:auto; object-fit:cover; object-position:center;
+  margin-top:16px;
 }
 @media (max-width:900px){ .personal-grid{grid-template-columns:repeat(2,1fr);} }
 @media (max-width:520px){ .personal-grid{grid-template-columns:1fr;} }
