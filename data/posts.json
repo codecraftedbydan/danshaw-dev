@@ -1,20 +1,26 @@
 [
   {
     "slug": "closing-the-gap",
-    "title": "Closing the gap between applied AI engineering and ML fundamentals",
-    "excerpt": "Six years of shipping production agentic systems taught me how to build with LLMs. It didn't teach me why the maths underneath them works — so I'm fixing that, in the open.",
+    "title": "Going back to first principles, on purpose",
+    "excerpt": "Six years shipping production agentic systems taught me how to build with LLMs. Now I'm going back through the fundamentals properly, in the open.",
+    "tags": [
+      "ML Fundamentals",
+      "Career"
+    ],
+    "status": "published",
     "date": "2026-07-08",
-    "tags": ["ML Fundamentals", "Career"],
-    "status": "draft",
-    "body": "## Why write in the open\n\nMost of my technical growth over the last few years has come from shipping — multi-agent platforms, retrieval pipelines, fine-tuned classifiers running in production. That's real experience, but it's also narrow in a specific way: applied engineering optimises for *what works*, not always *why*.\n\nThis is the first post in a series where I close that gap deliberately — working through fundamentals (attention from scratch, policy gradient methods, reward modelling) and writing up what I learn, including the parts I get wrong the first time.\n\n### What's next\n\n- A transformer implemented from scratch, no framework shortcuts\n- Notes on PPO vs DPO for preference optimisation\n- Reward modelling experiments on small open datasets\n\nIf you're on a similar path — applied engineer moving toward research-level fundamentals — I'd like to hear what worked for you."
+    "body": "## Why write in the open\n\nMost of my technical growth over the last few years has come from shipping — multi-agent platforms, retrieval pipelines, fine-tuned classifiers running in production. That's real experience, but it's a specific kind: applied engineering optimises for *what works in production*, which isn't always the same muscle as understanding *why* something works from first principles.\n\nI got properly interested in this during a university AI module that went from the fundamentals through CNNs and transformers — that's what pulled me toward this field in the first place. Since then, the applied side has moved fast, and I want to go back through the fundamentals deliberately: not because I'm starting from zero, but because the gap between \"I studied this\" and \"I could rebuild it and explain every decision\" is worth closing properly, especially with how quickly the field's moved on since.\n\nThis is the first post in a series doing exactly that — working back through the fundamentals (attention from scratch, policy gradient methods, reward modelling) and writing up what I learn, including the parts I get wrong the first time.\n\n### What's next\n\n- A transformer implemented from scratch, no framework shortcuts\n- Notes on PPO vs DPO for preference optimisation\n- Reward modelling experiments on small open datasets\n\nIf you're doing something similar — refreshing and deepening fundamentals alongside applied work — I'd like to hear what worked for you."
   },
   {
     "slug": "contextual-bandits-in-production",
     "title": "[REDACTED]",
     "excerpt": "Notes from building a system that tunes its own retrieval and generation parameters using time-decayed reward signals — and the failure modes nobody warns you about.",
+    "tags": [
+      "Reinforcement Learning",
+      "Production AI"
+    ],
+    "status": "published",
     "date": "2026-06-20",
-    "tags": ["Reinforcement Learning", "Production AI"],
-    "status": "draft",
     "body": "## The problem\n\nStatic RAG configurations degrade as usage patterns shift. Retrieval strategies tuned for one cohort of queries quietly stop working for another, and nobody notices until [REDACTED].\n\n[REDACTED], learning from real user feedback with [REDACTED] — recent signal matters more than signal from three months ago.\n\n### [REDACTED]\n\n- **Reward attribution lag.** Feedback doesn't arrive instantly, and naive attribution assigns credit to the wrong action if you're not careful with windowing.\n- **Cold-start variance.** New configurations get explored aggressively before there's enough signal, which briefly makes the system look worse before it looks better.\n- **Silent drift in the reward model itself.** If the thing scoring quality is an LLM, it needs its own monitoring — otherwise you're tuning against a moving target.\n\nMore on the fixes for each of these in the next post."
   }
 ]
