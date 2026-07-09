@@ -58,7 +58,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   letter-spacing:0.04em;
 }
 
-.wrap{max-width:var(--max); margin:0 auto; padding:0 var(--pad);}
+.wrap{max-width:var(--max); margin:0 auto; padding-left:var(--pad); padding-right:var(--pad);}
 
 /* ---------- NAV ---------- */
 .nav{
@@ -218,6 +218,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 /* ---------- SECTION SCAFFOLD ---------- */
 section{padding:110px 0;}
+section#about{padding-top:132px;}
 .section-head{
   display:flex; justify-content:space-between; align-items:flex-end;
   margin-bottom:56px; gap:24px; flex-wrap:wrap;
