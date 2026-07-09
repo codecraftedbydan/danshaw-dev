@@ -6,11 +6,11 @@ A static, zero-backend personal site: home/about, work (pulled live from GitHub)
 
 1. **Set my own admin password.** In `js/admin.js`:
    ```js
-   const ADMIN_PASSWORD = 'changeme-dan2026';
+   const ADMIN_PASSWORD = '...';
    ```
    Read the security note below first — this is a light gate, not real auth.
 
-2. **Update contact links.** In `index.html`, swap the placeholder `mailto:hello@danshaw.dev` and LinkedIn URL for my real ones.
+2. **Update contact links.** In `index.html`, swap the placeholder `mailto:...` and LinkedIn URL for my real ones.
 
 3. **Swap in real photos.** Each dashed "photo placeholder" box in the "Off duty" section on `index.html` is a plain `<div class="photo-slot">`. Replace it with an `<img>` tag once I've picked images, e.g.:
    ```html
