@@ -178,7 +178,7 @@
   function update(dt) {
     elapsed += dt;
     distance += speed * dt * 40;
-    speed = Math.min(9, 3.6 + elapsed * 0.045);
+    speed = Math.min(10.5, 5.2 + elapsed * 0.05);   
 
     // player movement
     const targetVx = keys.left ? -4.2 : keys.right ? 4.2 : 0;
@@ -190,7 +190,7 @@
     player.x = Math.max(LANE_MARGIN, Math.min(W - LANE_MARGIN, player.x));
 
     spawnTimer -= dt;
-    const spawnRate = Math.max(0.35, 0.95 - elapsed * 0.01);
+    const spawnRate = Math.max(0.3, 0.65 - elapsed * 0.01);
     if (spawnTimer <= 0) {
       spawnObstacleOrFlake();
       spawnTimer = spawnRate;
