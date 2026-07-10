@@ -119,7 +119,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     transition:transform .35s var(--ease);
   }
   .nav-links.open{transform:translateX(0);}
-  .nav-toggle{display:block; z-index:1001; position:relative;}
+  .nav-toggle{display:block; z-index:1001;}
 }
 
 /* ---------- HERO ---------- */
