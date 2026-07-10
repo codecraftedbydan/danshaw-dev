@@ -69,3 +69,36 @@
   font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.08em;
   text-transform:uppercase; color:var(--grey-2); margin-top:6px;
 }
+
+/* ---------- MODE SELECT ---------- */
+.game-mode-select{
+  position:absolute; inset:0; z-index:530;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:36px;
+  background:#000000;
+}
+.game-mode-select h3{
+  font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.16em;
+  color:var(--grey-2); text-transform:uppercase;
+}
+.mode-options{display:flex; gap:18px; flex-wrap:wrap; justify-content:center; padding:0 20px;}
+.mode-btn{
+  display:flex; flex-direction:column; align-items:center; gap:8px;
+  background:var(--panel); border:1px solid var(--line); border-radius:4px;
+  padding:32px 44px; cursor:pointer; color:var(--white);
+  transition:border-color .2s, transform .2s;
+}
+.mode-btn:hover{border-color:var(--grey-1); transform:translateY(-2px);}
+.mode-btn-title{font-family:'Space Grotesk',sans-serif; font-size:1.4rem;}
+.mode-btn-sub{font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--grey-2); letter-spacing:0.08em; text-transform:uppercase;}
+
+/* ---------- DUAL PANELS ---------- */
+.game-canvas-wrap{position:absolute; inset:0; display:none;}
+.game-canvas-wrap.active{display:block;}
+.game-back-btn{
+  background:none; border:1px solid var(--line); border-radius:20px;
+  color:var(--grey-1); font-family:'IBM Plex Mono',monospace; font-size:10.5px;
+  letter-spacing:0.06em; text-transform:uppercase; padding:5px 12px; cursor:pointer;
+  margin-left:auto;
+}
+.game-back-btn:hover{color:var(--white); border-color:var(--grey-1);}
+.game-hud{justify-content:flex-start;}

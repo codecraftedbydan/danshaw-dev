@@ -178,7 +178,7 @@
   function update(dt) {
     elapsed += dt;
     distance += speed * dt * 40;
-    speed = Math.min(10.5, 5.2 + elapsed * 0.05);   
+    speed = Math.min(10.5, 5.2 + elapsed * 0.05);
 
     // player movement
     const targetVx = keys.left ? -4.2 : keys.right ? 4.2 : 0;
@@ -311,10 +311,24 @@
     const overlay = document.getElementById('game-overlay');
     overlay.classList.add('open');
     document.body.style.overflow = 'hidden';
+    showModeSelect();
+  }
+
+  function showModeSelect() {
+    document.getElementById('game-mode-select').style.display = 'flex';
+    document.getElementById('game-classic-panel').classList.remove('active');
+    document.getElementById('game-3d-panel').classList.remove('active');
+    stopGame();
+    if (window.Ski3D) window.Ski3D.stop();
+  }
+
+  function launchClassic() {
+    document.getElementById('game-mode-select').style.display = 'none';
+    document.getElementById('game-classic-panel').classList.add('active');
     resize();
     state = 'idle';
     document.getElementById('game-overlay-msg').style.display = 'flex';
-    document.getElementById('game-msg-title').textContent = 'GAME MODE';
+    document.getElementById('game-msg-title').textContent = 'CLASSIC';
     document.getElementById('game-msg-sub').textContent = 'Dodge trees & rocks. Collect snowflakes.';
     document.getElementById('game-msg-cta').textContent = 'Press SPACE or tap to start';
     lastT = null;
@@ -328,6 +342,7 @@
     overlay.classList.remove('open');
     document.body.style.overflow = '';
     stopGame();
+    if (window.Ski3D) window.Ski3D.stop();
   }
 
   function handleActivate() {
@@ -347,9 +362,18 @@
     toggle.addEventListener('click', openOverlay);
     closeBtn.addEventListener('click', closeOverlay);
     msgLayer.addEventListener('click', handleActivate);
+    document.getElementById('mode-classic-btn').addEventListener('click', launchClassic);
+    document.getElementById('mode-descent-btn').addEventListener('click', () => {
+      document.getElementById('game-mode-select').style.display = 'none';
+      document.getElementById('game-3d-panel').classList.add('active');
+      if (window.Ski3D) window.Ski3D.launch();
+    });
+    document.getElementById('game-back-classic').addEventListener('click', showModeSelect);
+    document.getElementById('game-back-3d').addEventListener('click', showModeSelect);
 
     window.addEventListener('keydown', (e) => {
       if (!overlay.classList.contains('open')) return;
+      if (!document.getElementById('game-classic-panel').classList.contains('active')) return;
       if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') keys.left = true;
       if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') keys.right = true;
       if (e.key === ' ') { e.preventDefault(); handleActivate(); }
@@ -370,7 +394,7 @@
     canvas.addEventListener('touchend', () => { touchX = null; });
 
     window.addEventListener('resize', () => {
-      if (overlay.classList.contains('open')) resize();
+      if (document.getElementById('game-classic-panel').classList.contains('active')) resize();
     });
   });
 })();
