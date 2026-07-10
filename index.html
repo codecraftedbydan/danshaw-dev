@@ -22,8 +22,29 @@
 <meta name="twitter:image" content="https://www.danshaw.dev/assets/img/og-image.png">
 
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/game.css">
 </head>
 <body>
+
+  <button class="game-toggle" id="game-mode-toggle">
+  <span class="dot"></span> GAME MODE
+</button>
+
+<div class="game-overlay" id="game-overlay">
+  <div class="game-canvas-wrap">
+    <canvas id="game-canvas"></canvas>
+  </div>
+  <div class="game-hud">
+    <span>❄ COLLECTED: <b id="game-hud-collected">0</b></span>
+    <span>DISTANCE: <b id="game-hud-distance">0</b>M</span>
+  </div>
+  <button class="game-close-btn" id="game-close-btn">✕</button>
+  <div class="game-overlay-msg" id="game-overlay-msg">
+    <h3 id="game-msg-title">GAME MODE</h3>
+    <p id="game-msg-sub">Dodge trees &amp; rocks. Collect snowflakes.</p>
+    <p class="msg-cta" id="game-msg-cta">Press SPACE or tap to start</p>
+  </div>
+</div>
 
 <nav class="nav">
   <a class="nav-logo" href="index.html"><span class="dot"></span>DAN SHAW</a>
@@ -195,5 +216,6 @@
 <script src="js/main.js"></script>
 <script src="js/tabs.js"></script>
 <script src="js/robot-trail.js"></script>
+<script src="js/ski-game.js"></script>
 </body>
 </html>
