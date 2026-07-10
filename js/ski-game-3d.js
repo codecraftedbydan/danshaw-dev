@@ -201,8 +201,9 @@ window.Ski3D = (function () {
     const targetVx = keys.left ? -5.5 : keys.right ? 5.5 : 0;
     if (touchX !== null) {
       const targetX = Math.max(-LANE_HALF, Math.min(LANE_HALF, touchX));
-      // Move more directly toward touch on mobile — higher interpolation for responsiveness
-      const newX = player.x + (targetX - player.x) * 0.55;
+      // frame-rate independent smoothing (alpha derived from dt)
+      const alpha = 1 - Math.exp(-12 * dt); // higher factor = snappier
+      const newX = player.x + (targetX - player.x) * alpha;
       player.vx = (newX - player.x) / Math.max(dt, 0.001);
       player.x = newX;
     } else {
@@ -216,7 +217,11 @@ window.Ski3D = (function () {
     playerGroup.rotation.z = Math.max(-0.45, Math.min(0.45, -player.vx * 0.03));
 
     // Camera uses dynamic offsets (adjusted in resize) for better mobile visibility
-    camera.position.set(player.x * 0.5, CAMERA_Y, CAMERA_Z);
+    // Smooth camera transitions to reduce jitter
+    const desiredCamX = player.x * 0.5;
+    camera.position.x += (desiredCamX - camera.position.x) * 0.12;
+    camera.position.y += (CAMERA_Y - camera.position.y) * 0.12;
+    camera.position.z += (CAMERA_Z - camera.position.z) * 0.12;
     camera.lookAt(player.x, 1.2, PLAYER_Z - 6);
 
     const dz = speed * dt * 60;
@@ -347,12 +352,34 @@ window.Ski3D = (function () {
 
     document.getElementById('game-overlay-msg-3d').addEventListener('click', handleActivate);
 
-    canvas.addEventListener('touchstart', (e) => {
+    // Use Pointer Events for unified, reliable touch/mouse handling with pointer capture
+    canvas.style.touchAction = 'none';
+    let activePointerId = null;
+
+    canvas.addEventListener('pointerdown', (e) => {
+      if (e.pointerType !== 'mouse') e.preventDefault();
       handleActivate();
-      touchX = screenXToWorldX(e.touches[0].clientX);
-    }, { passive: true });
-    canvas.addEventListener('touchmove', (e) => { touchX = screenXToWorldX(e.touches[0].clientX); }, { passive: true });
-    canvas.addEventListener('touchend', () => { touchX = null; });
+      activePointerId = e.pointerId;
+      canvas.setPointerCapture(activePointerId);
+      touchX = screenXToWorldX(e.clientX);
+    });
+
+    canvas.addEventListener('pointermove', (e) => {
+      if (activePointerId !== null && e.pointerId === activePointerId) {
+        touchX = screenXToWorldX(e.clientX);
+      }
+    });
+
+    function releasePointer(e) {
+      if (activePointerId !== null && (e.pointerId === activePointerId || e.type === 'pointercancel')) {
+        try { canvas.releasePointerCapture(activePointerId); } catch (err) {}
+        activePointerId = null;
+        touchX = null;
+      }
+    }
+
+    canvas.addEventListener('pointerup', releasePointer);
+    canvas.addEventListener('pointercancel', releasePointer);
 
     window.addEventListener('resize', () => {
       if (document.getElementById('game-3d-panel').classList.contains('active') && renderer) resize();
