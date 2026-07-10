@@ -184,9 +184,16 @@ window.Ski3D = (function () {
     distance += speed * dt * 240;
 
     const targetVx = keys.left ? -5.5 : keys.right ? 5.5 : 0;
-    player.vx += (targetVx - player.vx) * 0.15;
-    if (touchX !== null) player.vx = (touchX - player.x) * 0.24;
-    player.x += player.vx * dt;
+    if (touchX !== null) {
+      const targetX = Math.max(-LANE_HALF, Math.min(LANE_HALF, touchX));
+      const newX = player.x + (targetX - player.x) * 0.35;
+      player.vx = (newX - player.x) / Math.max(dt, 0.001);
+      player.x = newX;
+    } else {
+      player.vx += (targetVx - player.vx) * 0.15;
+      player.x += player.vx * dt;
+    }
+
     player.x = Math.max(-LANE_HALF, Math.min(LANE_HALF, player.x));
     playerGroup.position.x = player.x;
     playerGroup.rotation.z = -player.vx * 0.03;
