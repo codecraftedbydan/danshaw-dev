@@ -22,12 +22,15 @@ window.Ski3D = (function () {
   let lastT = null;
   let W, H;
   let CAMERA_Y = 3.4;
-  let CAMERA_Z = PLAYER_Z + 6;
+  let CAMERA_Z = 0;
 
   const LANE_HALF = 4.2;
   const PLAYER_Z = 6;
   const SPAWN_Z = -60;
   const DESPAWN_Z = 10;
+
+  // initialize camera Z using PLAYER_Z now that it's declared
+  CAMERA_Z = PLAYER_Z + 6;
 
   function edgeMesh(geometry, color) {
     const edges = new THREE.EdgesGeometry(geometry);
