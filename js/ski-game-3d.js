@@ -21,6 +21,8 @@ window.Ski3D = (function () {
   let touchX = null;
   let lastT = null;
   let W, H;
+  let CAMERA_Y = 3.4;
+  let CAMERA_Z = PLAYER_Z + 6;
 
   const LANE_HALF = 4.2;
   const PLAYER_Z = 6;
@@ -154,6 +156,16 @@ window.Ski3D = (function () {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.setSize(W, H, false);
     camera.aspect = W / H;
+    // On narrow screens use a wider FOV and pull camera back for better visibility
+    if (W < 600) {
+      camera.fov = 75;
+      CAMERA_Y = 4.5;
+      CAMERA_Z = PLAYER_Z + 10;
+    } else {
+      camera.fov = 62;
+      CAMERA_Y = 3.4;
+      CAMERA_Z = PLAYER_Z + 6;
+    }
     camera.updateProjectionMatrix();
   }
 
@@ -186,7 +198,8 @@ window.Ski3D = (function () {
     const targetVx = keys.left ? -5.5 : keys.right ? 5.5 : 0;
     if (touchX !== null) {
       const targetX = Math.max(-LANE_HALF, Math.min(LANE_HALF, touchX));
-      const newX = player.x + (targetX - player.x) * 0.35;
+      // Move more directly toward touch on mobile — higher interpolation for responsiveness
+      const newX = player.x + (targetX - player.x) * 0.55;
       player.vx = (newX - player.x) / Math.max(dt, 0.001);
       player.x = newX;
     } else {
@@ -196,10 +209,12 @@ window.Ski3D = (function () {
 
     player.x = Math.max(-LANE_HALF, Math.min(LANE_HALF, player.x));
     playerGroup.position.x = player.x;
-    playerGroup.rotation.z = -player.vx * 0.03;
+    // Cap roll so it doesn't pivot wildly on small screens
+    playerGroup.rotation.z = Math.max(-0.45, Math.min(0.45, -player.vx * 0.03));
 
-    camera.position.set(player.x * 0.6, 3.4, PLAYER_Z + 6);
-    camera.lookAt(player.x * 0.9, 1.2, PLAYER_Z - 8);
+    // Camera uses dynamic offsets (adjusted in resize) for better mobile visibility
+    camera.position.set(player.x * 0.5, CAMERA_Y, CAMERA_Z);
+    camera.lookAt(player.x, 1.2, PLAYER_Z - 6);
 
     const dz = speed * dt * 60;
     spawnTimer -= dt;
