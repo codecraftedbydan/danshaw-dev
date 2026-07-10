@@ -3,7 +3,7 @@
    ============================================================ */
 
 .game-toggle{
-  position:fixed; top:22px; left:50%; transform:translateX(-50%);
+  position:fixed; top:72px; left:var(--pad);
   z-index:150;
   display:flex; align-items:center; gap:8px;
   background:rgba(0,0,0,0.7);
@@ -21,9 +21,6 @@
 .game-toggle .dot{
   width:6px; height:6px; border-radius:50%; background:var(--status);
   box-shadow:0 0 6px var(--status);
-}
-@media (max-width:720px){
-  .game-toggle{left:auto; right:84px; top:16px; transform:none; padding:8px 12px; font-size:10px;}
 }
 
 .game-overlay{

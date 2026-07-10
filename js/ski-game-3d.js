@@ -185,7 +185,7 @@ window.Ski3D = (function () {
 
     const targetVx = keys.left ? -5.5 : keys.right ? 5.5 : 0;
     player.vx += (targetVx - player.vx) * 0.15;
-    if (touchX !== null) player.vx = (touchX - player.x) * 0.06;
+    if (touchX !== null) player.vx = (touchX - player.x) * 0.24;
     player.x += player.vx * dt;
     player.x = Math.max(-LANE_HALF, Math.min(LANE_HALF, player.x));
     playerGroup.position.x = player.x;
@@ -216,7 +216,8 @@ window.Ski3D = (function () {
     flakes = flakes.filter(f => {
       const dx = f.mesh.position.x - player.x;
       const dzp = f.mesh.position.z - PLAYER_Z;
-      if (dx * dx + dzp * dzp < (f.r + 0.7) * (f.r + 0.7)) {
+      const collisionRadius = f.r + 1.1;
+      if (dx * dx + dzp * dzp < collisionRadius * collisionRadius) {
         collected++;
         scene.remove(f.mesh);
         return false;

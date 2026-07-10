@@ -349,6 +349,11 @@
     if (state === 'idle' || state === 'gameover') startGame();
   }
 
+  function screenXToCanvasX(screenX) {
+    const rect = canvas.getBoundingClientRect();
+    return screenX - rect.left;
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     canvas = document.getElementById('game-canvas');
     if (!canvas) return;
@@ -384,14 +389,23 @@
       if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') keys.right = false;
     });
 
-    canvas.addEventListener('touchstart', (e) => {
+    canvas.addEventListener('pointerdown', (e) => {
+      if (e.pointerType !== 'touch') return;
       handleActivate();
-      touchX = e.touches[0].clientX;
-    }, { passive: true });
-    canvas.addEventListener('touchmove', (e) => {
-      touchX = e.touches[0].clientX;
-    }, { passive: true });
-    canvas.addEventListener('touchend', () => { touchX = null; });
+      touchX = screenXToCanvasX(e.clientX);
+      canvas.setPointerCapture(e.pointerId);
+      e.preventDefault();
+    });
+    canvas.addEventListener('pointermove', (e) => {
+      if (e.pointerType !== 'touch' || touchX === null) return;
+      touchX = screenXToCanvasX(e.clientX);
+    });
+    canvas.addEventListener('pointerup', (e) => {
+      if (e.pointerType !== 'touch') return;
+      touchX = null;
+      canvas.releasePointerCapture(e.pointerId);
+    });
+    canvas.addEventListener('pointercancel', () => { touchX = null; });
 
     window.addEventListener('resize', () => {
       if (document.getElementById('game-classic-panel').classList.contains('active')) resize();
