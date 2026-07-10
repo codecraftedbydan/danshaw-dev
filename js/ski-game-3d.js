@@ -301,6 +301,11 @@ window.Ski3D = (function () {
     raf = null;
   }
 
+  function screenXToWorldX(screenX) {
+    const rect = canvas.getBoundingClientRect();
+    return ((screenX - rect.left) / rect.width) * (LANE_HALF * 2) - LANE_HALF;
+  }
+
   function wireControls() {
     window.addEventListener('keydown', (e) => {
       const panel = document.getElementById('game-3d-panel');
@@ -318,9 +323,9 @@ window.Ski3D = (function () {
 
     canvas.addEventListener('touchstart', (e) => {
       handleActivate();
-      touchX = e.touches[0].clientX;
+      touchX = screenXToWorldX(e.touches[0].clientX);
     }, { passive: true });
-    canvas.addEventListener('touchmove', (e) => { touchX = e.touches[0].clientX; }, { passive: true });
+    canvas.addEventListener('touchmove', (e) => { touchX = screenXToWorldX(e.touches[0].clientX); }, { passive: true });
     canvas.addEventListener('touchend', () => { touchX = null; });
 
     window.addEventListener('resize', () => {
