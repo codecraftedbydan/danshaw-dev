@@ -9,13 +9,20 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   if (toggle) {
+    const updateBodyNavState = () => {
+      if (links.classList.contains('open')) document.body.classList.add('nav-open');
+      else document.body.classList.remove('nav-open');
+    };
+
     toggle.addEventListener('click', () => {
       links.classList.toggle('open');
       toggle.textContent = links.classList.contains('open') ? '✕' : '☰';
+      updateBodyNavState();
     });
     links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
       links.classList.remove('open');
       toggle.textContent = '☰';
+      updateBodyNavState();
     }));
   }
 

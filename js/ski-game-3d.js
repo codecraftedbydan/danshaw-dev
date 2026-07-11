@@ -240,14 +240,16 @@ window.Ski3D = (function () {
     for (const o of obstacles) {
       const dx = o.mesh.position.x - player.x;
       const dzp = o.mesh.position.z - PLAYER_Z;
-      const rr = o.r + 0.55;
-      if (dx * dx + dzp * dzp < rr * rr) { triggerGameOver(); return; }
+      const xHit = Math.abs(dx) < 0.8 + o.r * 0.35;
+      const zHit = dzp > -0.8 && dzp < 1.1;
+      if (xHit && zHit) { triggerGameOver(); return; }
     }
     flakes = flakes.filter(f => {
       const dx = f.mesh.position.x - player.x;
       const dzp = f.mesh.position.z - PLAYER_Z;
-      const collisionRadius = f.r + 1.1;
-      if (dx * dx + dzp * dzp < collisionRadius * collisionRadius) {
+      const xHit = Math.abs(dx) < 0.75;
+      const zHit = dzp > -0.7 && dzp < 1.1;
+      if (xHit && zHit) {
         collected++;
         scene.remove(f.mesh);
         return false;
