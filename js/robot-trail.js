@@ -1,5 +1,5 @@
 /* ============================================================
-   SIGNATURE ELEMENT — plotter-bot
+   SIGNATURE ELEMENT - plotter-bot
    A small robot moves at constant speed along a single-stroke
    vector path that spells "DAN SHAW", drawing a trail as it goes
    and lifting its "pen" between letters. Loops after a pause.
@@ -32,7 +32,7 @@
     // Flatten letters into one ordered list of {x1,y1,x2,y2,draw} segments
     // in local unit space (y: 0 top .. 100 bottom). A pen-up (draw:false)
     // segment is auto-inserted at every stroke/letter boundary where the
-    // pen isn't already at the next stroke's start point — this is what
+    // pen isn't already at the next stroke's start point - this is what
     // makes the robot lift its pen between letters instead of drawing a
     // stray connecting line.
     const segments = [];

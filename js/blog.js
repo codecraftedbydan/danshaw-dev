@@ -5,7 +5,7 @@ async function initBlogList() {
   if (!el) return;
 
   if (!posts.length) {
-    el.innerHTML = `<div class="empty-state mono">No posts published yet. First one's coming — check back soon.</div>`;
+    el.innerHTML = `<div class="empty-state mono">No posts published yet. First one's coming - check back soon.</div>`;
     return;
   }
 

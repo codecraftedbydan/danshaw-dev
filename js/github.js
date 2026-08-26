@@ -1,12 +1,12 @@
 const GITHUB_USERNAME = 'codecraftedbydan';
 
-/* Fallback in case the GitHub API is rate-limited or unreachable —
+/* Fallback in case the GitHub API is rate-limited or unreachable -
    keep this in sync roughly with reality; it's a safety net, not
    the source of truth. Live data always overrides this on load. */
 const FALLBACK_PROJECTS = [
   {
     name: 'public-safety-agent',
-    description: 'An agentic system that monitors, retrieves, and synthesises publicly available public-safety intelligence across the US and UK — delivering structured, queryable intelligence briefings on demand.',
+    description: 'An agentic system that monitors, retrieves, and synthesises publicly available public-safety intelligence across the US and UK - delivering structured, queryable intelligence briefings on demand.',
     language: 'Python',
     html_url: `https://github.com/${GITHUB_USERNAME}/public-safety-agent`,
     topics: ['agents', 'langgraph', 'chromadb']
@@ -20,7 +20,7 @@ const FALLBACK_PROJECTS = [
   },
   {
     name: 'intent-classifier',
-    description: 'PyTorch fine-tuning pipeline for intent classification using DistilBERT and BANKING77 — the same pattern used to replace keyword-based routing in a production support platform.',
+    description: 'PyTorch fine-tuning pipeline for intent classification using DistilBERT and BANKING77 - the same pattern used to replace keyword-based routing in a production support platform.',
     language: 'Python',
     html_url: `https://github.com/${GITHUB_USERNAME}/intent-classifier`,
     topics: ['distilbert', 'nlp', 'pytorch', 'transformers']
@@ -71,7 +71,7 @@ async function loadProjects() {
 
 function renderCard(repo) {
   const desc = repo.description || 'No description yet.';
-  const lang = repo.language || '—';
+  const lang = repo.language || '-';
   const topics = (repo.topics || []).slice(0, 3);
   return `
     <a class="proj-card" href="${repo.html_url}" target="_blank" rel="noopener">

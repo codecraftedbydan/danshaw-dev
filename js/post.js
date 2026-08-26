@@ -13,16 +13,16 @@ async function initPost() {
         <p class="lede" style="color:var(--grey-1); margin-top:16px;">This one might still be a draft, or the link's out of date.</p>
         <a href="blog.html" class="btn" style="margin-top:30px; display:inline-flex;">← Back to writing</a>
       </div>`;
-    document.title = 'Not found — Dan Shaw';
+    document.title = 'Not found - Dan Shaw';
     return;
   }
 
-  document.title = `${post.title} — Dan Shaw`;
+  document.title = `${post.title} - Dan Shaw`;
   const desc = post.excerpt || post.title;
   const setMeta = (id, val) => { const el = document.getElementById(id); if (el) el.setAttribute('content', val); };
-  setMeta('og-title', `${post.title} — Dan Shaw`);
+  setMeta('og-title', `${post.title} - Dan Shaw`);
   setMeta('og-desc', desc);
-  setMeta('tw-title', `${post.title} — Dan Shaw`);
+  setMeta('tw-title', `${post.title} - Dan Shaw`);
   setMeta('tw-desc', desc);
 
   container.innerHTML = `

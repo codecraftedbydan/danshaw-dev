@@ -1,5 +1,5 @@
 /* ============================================================
-   DAN SHAW — PERSONAL SITE
+   DAN SHAW - PERSONAL SITE
    Design system: mission-control monochrome.
    Display: Space Grotesk | Body: Inter | Telemetry: IBM Plex Mono
    ============================================================ */
@@ -273,7 +273,7 @@ section#about{padding-top:132px;}
   position:relative; padding-left:20px; margin-bottom:12px;
   color:var(--grey-1); font-size:14.5px; line-height:1.7;
 }
-.exp-panel li::before{content:'—'; position:absolute; left:0; color:var(--grey-3);}
+.exp-panel li::before{content:'-'; position:absolute; left:0; color:var(--grey-3);}
 
 /* ---------- TIMELINE (kept for reference / other pages) ---------- */
 .timeline{display:flex; flex-direction:column;}
@@ -293,7 +293,7 @@ section#about{padding-top:132px;}
   color:var(--grey-1); font-size:14.5px; line-height:1.65;
 }
 .tl-role li::before{
-  content:'—'; position:absolute; left:0; color:var(--grey-3);
+  content:'-'; position:absolute; left:0; color:var(--grey-3);
 }
 @media (max-width:720px){
   .tl-item{grid-template-columns:1fr; gap:10px;}

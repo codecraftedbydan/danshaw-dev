@@ -1,7 +1,7 @@
 /* ============================================================
    ADMIN PANEL
    Set your own password below before you deploy. This is a
-   client-side check only — fine for keeping casual visitors
+   client-side check only - fine for keeping casual visitors
    out of an editor UI, but anyone who views source can read it.
    Don't use it to protect anything truly sensitive. See the
    README for how to add real auth later if you want it.
@@ -149,7 +149,7 @@ function importPosts(e) {
       renderPostList();
       alert('Posts imported into this browser.');
     } catch (err) {
-      alert('Could not parse that file — make sure it\'s a valid posts.json export.');
+      alert('Could not parse that file - make sure it\'s a valid posts.json export.');
     }
   };
   reader.readAsText(file);

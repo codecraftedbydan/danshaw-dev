@@ -1,11 +1,11 @@
 /* ============================================================
-   DESCENT — 3D ski mode (Three.js, r128)
+   DESCENT - 3D ski mode (Three.js, r128)
    Rendered as white line-art on black to match the rest of the
-   site (plotter-bot, Classic mode) rather than shaded/lit 3D —
+   site (plotter-bot, Classic mode) rather than shaded/lit 3D -
    every mesh uses EdgesGeometry + LineBasicMaterial, no lighting
    needed. Exposed globally as window.Ski3D with .launch()/.stop().
    Swap the geometry builders below (buildPlayerMesh, buildTree,
-   buildRock, buildSnowflake) for real models later if wanted —
+   buildRock, buildSnowflake) for real models later if wanted -
    everything else (spawn/update/collision/HUD) is independent.
    ============================================================ */
 
@@ -121,7 +121,7 @@ window.Ski3D = (function () {
     playerGroup = buildPlayerMesh();
     scene.add(playerGroup);
 
-    // scrolling ground grid — horizontal contour lines receding into fog
+    // scrolling ground grid - horizontal contour lines receding into fog
     for (let i = 0; i < 24; i++) {
       const z = -i * 4;
       const pts = [new THREE.Vector3(-LANE_HALF - 2, 0, z), new THREE.Vector3(LANE_HALF + 2, 0, z)];

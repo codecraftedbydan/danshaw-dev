@@ -1,7 +1,7 @@
 /* ============================================================
-   GAME MODE — ski slalom mini-game
+   GAME MODE - ski slalom mini-game
    Placeholder geometry for the yeti-bot / trees / rocks /
-   snowflakes — swap drawPlayer(), drawTree(), drawRock(), and
+   snowflakes - swap drawPlayer(), drawTree(), drawRock(), and
    drawSnowflake() for real sprite images later without touching
    the game loop, spawning, or collision logic below them.
    ============================================================ */

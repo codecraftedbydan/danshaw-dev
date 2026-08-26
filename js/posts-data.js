@@ -8,7 +8,7 @@
    localStorage is per-browser, per-device. Edits made in the
    admin panel only exist in that browser until you export and
    commit posts.json back into the repo. This is the honest
-   trade-off of a zero-backend static site — see README.md for
+   trade-off of a zero-backend static site - see README.md for
    the upgrade path if you want true multi-device publishing.
    ============================================================ */
 
@@ -62,7 +62,7 @@ function formatDate(iso) {
 
 /* Minimal markdown -> HTML. Supports: #/##/### headers, bold, italic,
    links, inline code, fenced code blocks, unordered/ordered lists,
-   blockquotes, paragraphs. Deliberately small — enough for technical posts. */
+   blockquotes, paragraphs. Deliberately small - enough for technical posts. */
 function renderMarkdown(md) {
   const lines = md.replace(/\r\n/g, '\n').split('\n');
   let html = '';
