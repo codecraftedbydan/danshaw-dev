@@ -14,16 +14,42 @@
 
 const POSTS_KEY = 'dan_blog_posts_v1';
 
+const SEED_SIG_KEY = 'dan_blog_seed_sig_v1';
+
+/* Loads data/posts.json on every visit. First visit: seed localStorage.
+   Later visits: if posts.json has changed since this browser last synced,
+   merge it in by slug (published posts in the repo win; posts that exist
+   only in this browser, e.g. admin drafts, are kept). This means returning
+   visitors see new or updated posts as soon as posts.json is redeployed. */
 async function seedPostsIfEmpty() {
-  const existing = localStorage.getItem(POSTS_KEY);
-  if (existing) return;
+  let seed;
   try {
     const res = await fetch('data/posts.json', { cache: 'no-store' });
-    const seed = await res.json();
-    localStorage.setItem(POSTS_KEY, JSON.stringify(seed));
+    seed = await res.json();
   } catch (e) {
-    localStorage.setItem(POSTS_KEY, JSON.stringify([]));
+    if (!localStorage.getItem(POSTS_KEY)) localStorage.setItem(POSTS_KEY, JSON.stringify([]));
+    return;
   }
+  const sig = String(JSON.stringify(seed).length) + ':' + seed.map(p => p.slug + '@' + (p.date || '')).join('|') + ':' + hashString(JSON.stringify(seed));
+  const existing = localStorage.getItem(POSTS_KEY);
+  if (!existing) {
+    localStorage.setItem(POSTS_KEY, JSON.stringify(seed));
+    localStorage.setItem(SEED_SIG_KEY, sig);
+    return;
+  }
+  if (localStorage.getItem(SEED_SIG_KEY) === sig) return;
+  let local;
+  try { local = JSON.parse(existing) || []; } catch (e) { local = []; }
+  const seedSlugs = new Set(seed.map(p => p.slug));
+  const merged = seed.concat(local.filter(p => !seedSlugs.has(p.slug)));
+  localStorage.setItem(POSTS_KEY, JSON.stringify(merged));
+  localStorage.setItem(SEED_SIG_KEY, sig);
+}
+
+function hashString(str) {
+  let h = 0;
+  for (let i = 0; i < str.length; i++) { h = ((h << 5) - h + str.charCodeAt(i)) | 0; }
+  return (h >>> 0).toString(36);
 }
 
 function getPosts() {
